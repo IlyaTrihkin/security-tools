@@ -7,21 +7,14 @@ import json
 import argparse
 
 def get_updates():
-    """
-    Возвращает список названий пакетов, для которых доступны обновления.
-    Поддерживает apt (Debian/Ubuntu/Astra) и yum (CentOS/RedOS).
-    Если менеджер не найден, возвращает None.
-    """
     try:
-        # Пробуем apt
         result = subprocess.run(['apt', 'list', '--upgradable'],
                                 capture_output=True, text=True)
         if result.stdout.strip():
-            lines = result.stdout.strip().split('\n')[1:]  # пропускаем заголовок
+            lines = result.stdout.strip().split('\n')[1:]
             packages = []
             for line in lines:
                 if line:
-                    # Формат: "package/version arch [upgradable from: ...]"
                     pkg = line.split('/')[0]
                     packages.append(pkg)
             return packages
@@ -29,7 +22,6 @@ def get_updates():
             return []
     except FileNotFoundError:
         try:
-            # Пробуем yum
             result = subprocess.run(['yum', 'check-update'],
                                     capture_output=True, text=True)
             if result.stdout.strip():
@@ -44,11 +36,46 @@ def get_updates():
             else:
                 return []
         except FileNotFoundError:
-            return None  # ошибка: ни apt, ни yum не найдены
+            return None
+
+def install_updates_apt(packages):
+    print(f"Устанавливаю {len(packages)} обновлений через apt...")
+    cmd = ['sudo', 'apt', 'install', '-y'] + packages
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("Ошибка при установке обновлений:", file=sys.stderr)
+        print(result.stderr, file=sys.stderr)
+        return False
+    print("Обновления успешно установлены.")
+    return True
+
+def install_updates_yum(packages):
+    print(f"Устанавливаю {len(packages)} обновлений через yum...")
+    cmd = ['sudo', 'yum', 'update', '-y'] + packages
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("Ошибка при установке обновлений:", file=sys.stderr)
+        print(result.stderr, file=sys.stderr)
+        return False
+    print("Обновления успешно установлены.")
+    return True
+
+def install_updates(packages):
+    try:
+        subprocess.run(['apt', '--version'], capture_output=True, check=True)
+        return install_updates_apt(packages)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        pass
+    try:
+        subprocess.run(['yum', '--version'], capture_output=True, check=True)
+        return install_updates_yum(packages)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        print("Не найден ни apt, ни yum. Установка невозможна.", file=sys.stderr)
+        return False
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Проверка доступных обновлений пакетов в Linux-системах'
+        description='Проверка и установка обновлений пакетов в Linux-системах'
     )
     parser.add_argument(
         '--format', '-f',
@@ -56,7 +83,39 @@ def main():
         default='text',
         help='Формат вывода: text (по умолчанию) или json'
     )
+    parser.add_argument(
+        '--update', '-u',
+        action='store_true',
+        help='Установить все доступные обновления (повторять, пока есть)'
+    )
+    parser.add_argument(
+        '--yes', '-y',
+        action='store_true',
+        help='Автоматически соглашаться на установку (без подтверждения)'
+    )
     args = parser.parse_args()
+
+    if args.update:
+        while True:
+            updates = get_updates()
+            if updates is None:
+                print("Ошибка: не найден менеджер пакетов.", file=sys.stderr)
+                sys.exit(1)
+            if not updates:
+                print("Нет доступных обновлений. Система полностью обновлена.")
+                break
+            print(f"Найдено {len(updates)} пакетов для обновления.")
+            if not args.yes:
+                reply = input("Установить все обновления? (y/n): ").strip().lower()
+                if reply not in ('y', 'yes'):
+                    print("Установка отменена.")
+                    break
+            success = install_updates(updates)
+            if not success:
+                print("Ошибка при установке. Прерывание.", file=sys.stderr)
+                sys.exit(1)
+            print("Проверяю, остались ли ещё обновления...")
+        return
 
     updates = get_updates()
     if updates is None:
@@ -64,15 +123,14 @@ def main():
         sys.exit(1)
 
     if args.format == 'json':
-        # Выводим в формате JSON
         print(json.dumps(updates, ensure_ascii=False, indent=2))
     else:
-        # Текстовый вывод
         if updates:
             print("Доступны обновления для следующих пакетов:")
             for pkg in updates:
                 print(f"  - {pkg}")
             print(f"Всего: {len(updates)} пакетов.")
+            print("\nДля установки выполните скрипт с флагом --update")
         else:
             print("Нет доступных обновлений.")
 
