@@ -35,23 +35,23 @@
 
 #### Проверка обновлений (текстовый вывод)
 ```bash
-python3 check_os_updates.py```
+python3 check_os_updates.py
 #### Проверка обновлений (JSON)
 ```bash
-python3 check_os_updates.py --format json```
+python3 check_os_updates.py --format json
 #### Установка всех обновлений с подтверждением
 ```bash
-python3 check_os_updates.py --update```
+python3 check_os_updates.py --update
 #### Установка всех обновлений автоматически (для cron)
 ```bash
-python3 check_os_updates.py --update --yes```
+python3 check_os_updates.py --update --yes
 #### Пример вывода (JSON)
 ```json
 [
   "openssl",
   "bash",
   "systemd"
-]```
+]
 #### Пример установки обновлений
 ```text
 $ python3 check_os_updates.py --update --yes
@@ -60,7 +60,7 @@ $ python3 check_os_updates.py --update --yes
 [sudo] password for user:
 Обновления успешно установлены.
 Проверяю, остались ли ещё обновления...
-Нет доступных обновлений. Система полностью обновлена.```
+Нет доступных обновлений. Система полностью обновлена.
 
 ---
 
@@ -85,22 +85,22 @@ Python 3.6+
 ### 💻 Примеры использования
 #### Анализ стандартного лога
 ```bash
-python3 log_analyzer.py```
+python3 log_analyzer.py
 #### Анализ другого файла
 ```bash
-python3 log_analyzer.py --file /var/log/secure```
+python3 log_analyzer.py --file /var/log/secure
 #### Вывод в JSON
 ```bash
-python3 log_analyzer.py --format json```
+python3 log_analyzer.py --format json
 #### Только IP с >= 5 попытками
 ```bash
-python3 log_analyzer.py --min-count 5```
+python3 log_analyzer.py --min-count 5
 #### Топ-10 самых активных IP
 ```bash
-python3 log_analyzer.py --top 10```
+python3 log_analyzer.py --top 10
 #### Комбинация фильтров
 ```bash
-python3 log_analyzer.py --format json --min-count 3 --top 5```
+python3 log_analyzer.py --format json --min-count 3 --top 5
 #### Пример вывода (текст)
 ```text
 Неудачные попытки входа (всего: 8)
@@ -109,14 +109,14 @@ python3 log_analyzer.py --format json --min-count 3 --top 5```
 10.0.0.5             3 раз(а)
 203.0.113.1          2 раз(а)
 ----------------------------------------
-Уникальных IP: 3```
+Уникальных IP: 3
 #### Пример вывода (JSON)
 ```json
 {
   "192.168.1.100": 3,
   "10.0.0.5": 3,
   "203.0.113.1": 2
-}```
+}
 ### 🚀 Планы по развитию
 Оба скрипта будут дополняться новыми возможностями:
 
