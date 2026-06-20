@@ -34,25 +34,36 @@
 ### 💻 Примеры использования
 
 #### Проверка обновлений (текстовый вывод)
+
 ```bash
 python3 check_os_updates.py
+
 #### Проверка обновлений (JSON)
+
 ```bash
 python3 check_os_updates.py --format json
+
 #### Установка всех обновлений с подтверждением
+
 ```bash
 python3 check_os_updates.py --update
+
 #### Установка всех обновлений автоматически (для cron)
+
 ```bash
 python3 check_os_updates.py --update --yes
+
 #### Пример вывода (JSON)
+
 ```json
 [
   "openssl",
   "bash",
   "systemd"
 ]
+
 #### Пример установки обновлений
+
 ```text
 $ python3 check_os_updates.py --update --yes
 Найдено 72 пакетов для обновления.
@@ -65,10 +76,13 @@ $ python3 check_os_updates.py --update --yes
 ---
 
 ## 2. 📊 log_analyzer.py
+
 ### 🎯 Назначение
+
 Анализ неудачных попыток входа по SSH из системных логов. Скрипт помогает быстро выявлять подозрительную активность (брутфорс) и может использоваться для интеграции с системами мониторинга.
 
 ### 📋 Требования
+
 Python 3.6+
 
 Доступ к лог-файлу (обычно /var/log/auth.log, может потребоваться sudo)
@@ -83,25 +97,39 @@ Python 3.6+
 | `--top, -t` | Показать только N самых активных IP |
 
 ### 💻 Примеры использования
+
 #### Анализ стандартного лога
+
 ```bash
 python3 log_analyzer.py
+
 #### Анализ другого файла
+
 ```bash
 python3 log_analyzer.py --file /var/log/secure
+
 #### Вывод в JSON
+
 ```bash
 python3 log_analyzer.py --format json
+
 #### Только IP с >= 5 попытками
+
 ```bash
 python3 log_analyzer.py --min-count 5
+
 #### Топ-10 самых активных IP
+
 ```bash
 python3 log_analyzer.py --top 10
+
 #### Комбинация фильтров
+
 ```bash
 python3 log_analyzer.py --format json --min-count 3 --top 5
+
 #### Пример вывода (текст)
+
 ```text
 Неудачные попытки входа (всего: 8)
 ----------------------------------------
@@ -110,17 +138,22 @@ python3 log_analyzer.py --format json --min-count 3 --top 5
 203.0.113.1          2 раз(а)
 ----------------------------------------
 Уникальных IP: 3
+
 #### Пример вывода (JSON)
+
 ```json
 {
   "192.168.1.100": 3,
   "10.0.0.5": 3,
   "203.0.113.1": 2
 }
+
 ### 🚀 Планы по развитию
+
 Оба скрипта будут дополняться новыми возможностями:
 
 #### Для check_os_updates.py
+
 - Проверка критических уязвимостей (CVE) через публичные API (NVD).
 
 - Интеграция с системами мониторинга (Zabbix, Prometheus) — отправка метрик.
@@ -130,6 +163,7 @@ python3 log_analyzer.py --format json --min-count 3 --top 5
 - Упаковка в Docker-образ для простого развёртывания.
 
 #### Для log_analyzer.py
+
 - Автоматическая блокировка IP через fail2ban (или iptables).
 
 - Отправка уведомлений в Telegram при обнаружении подозрительной активности.
@@ -141,13 +175,17 @@ python3 log_analyzer.py --format json --min-count 3 --top 5
 ---
 
 ## 👤 Автор
+
 Илья Тришкин — специалист по информационной безопасности.
 
 #### GitHub: 
+
 https://github.com/IlyaTrihkin
 
 #### TenChat: 
+
 https://tenchat.ru/ilya_trishkin
 
 #### Habr: 
+
 https://habr.com/ru/users/ilya_trishkin
