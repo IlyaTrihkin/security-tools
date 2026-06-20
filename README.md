@@ -148,6 +148,79 @@ python3 log_analyzer.py --format json --min-count 3 --top 5
   "203.0.113.1": 2
 }
 ```
+
+## 🐳 Установка и использование через Docker
+
+Все скрипты упакованы в Docker-образ, что позволяет запускать их в любой системе с установленным Docker без необходимости устанавливать Python и зависимости.
+
+### Требования
+- Docker (и Docker Compose, если планируешь использовать `docker compose`)
+
+### Сборка образа
+
+```bash
+cd docker
+docker build -t security-tools .
+```
+### Запуск с помощью docker run
+
+#### Проверка обновлений (текст)
+
+```bash
+docker run --rm security-tools check_os_updates.py
+```
+
+#### Проверка обновлений (JSON)
+
+```bash
+docker run --rm security-tools check_os_updates.py --format json
+```
+
+#### Установка обновлений (с подтверждением)
+
+```bash
+docker run --rm -it security-tools check_os_updates.py --update
+```
+
+#### Анализ логов SSH (монтирование /var/log)
+
+```bash
+docker run --rm -v /var/log:/var/log security-tools log_analyzer.py --file /var/log/auth.log
+```
+
+#### Анализ логов в формате JSON
+
+```bash
+docker run --rm -v /var/log:/var/log security-tools log_analyzer.py --format json --file /var/log/auth.log
+```
+
+#### Запуск обоих скриптов через docker compose
+
+В папке docker уже есть готовый файл docker-compose.yml. Для одновременного запуска обоих сервисов выполни:
+
+```bash
+cd docker
+docker compose up
+```
+
+Если нужно пересобрать образы перед запуском:
+
+```bash
+docker compose up --build
+```
+
+Для фонового режима:
+
+```bash
+docker compose up -d
+```
+
+Остановка контейнеров:
+
+```bash
+docker compose down
+```
+
 ### 🚀 Планы по развитию
 
 Оба скрипта будут дополняться новыми возможностями:
@@ -159,8 +232,6 @@ python3 log_analyzer.py --format json --min-count 3 --top 5
 - Интеграция с системами мониторинга (Zabbix, Prometheus) — отправка метрик.
 
 - Отправка отчётов по email с результатами проверки.
-
-- Упаковка в Docker-образ для простого развёртывания.
 
 #### Для log_analyzer.py
 
