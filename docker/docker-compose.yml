@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  check-updates:
+    build: .
+    command: ["check_os_updates.py", "--format", "json"]
+    restart: "no"
+
+  log-analyzer:
+    build: .
+    command: ["log_analyzer.py", "--format", "text", "--file", "/var/log/auth.log"]
+    volumes:
+      - /var/log:/var/log:ro
+    restart: "no"
