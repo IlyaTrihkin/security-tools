@@ -8,14 +8,14 @@
 
 ## 📚 Содержание
 
-- [1.-🎯-Основной-скрипт-аудита-(`audit.py`)](https://github.com/IlyaTrihkin/security-tools#1--основной-скрипт-аудита-auditpy)
-- [📦-Установка-и-использование](https://github.com/IlyaTrihkin/security-tools#-установка-и-использование)
-- [⚙️-Параметры-командной-строки](https://github.com/IlyaTrihkin/security-tools#%EF%B8%8F-параметры-командной-строки)
-- [💻-Примеры-использования](https://github.com/IlyaTrihkin/security-tools#-примеры-использования)
-- [🐳-Запуск-через-Docker](https://github.com/IlyaTrihkin/security-tools#-запуск-через-docker)
-- [📁-Структура-проекта](https://github.com/IlyaTrihkin/security-tools#-структура-проекта)
-- [🚀-Планы-по-развитию](https://github.com/IlyaTrihkin/security-tools#-планы-по-развитию)
-- [👤-Автор](https://github.com/IlyaTrihkin/security-tools#-автор)
+- [Основной скрипт аудита](https://github.com/IlyaTrihkin/security-tools#1--основной-скрипт-аудита-auditpy)
+- [Установка и использование](https://github.com/IlyaTrihkin/security-tools#-установка-и-использование)
+- [Параметры командной строки](https://github.com/IlyaTrihkin/security-tools#%EF%B8%8F-параметры-командной-строки)
+- [Примеры использования](https://github.com/IlyaTrihkin/security-tools#-примеры-использования)
+- [Запуск через Docker](https://github.com/IlyaTrihkin/security-tools#-запуск-через-docker)
+- [Структура проекта](https://github.com/IlyaTrihkin/security-tools#-структура-проекта)
+- [Планы по развитию](https://github.com/IlyaTrihkin/security-tools#-планы-по-развитию)
+- [Автор](https://github.com/IlyaTrihkin/security-tools#-автор)
 
 ---
 
