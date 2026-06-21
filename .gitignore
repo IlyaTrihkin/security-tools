@@ -1,0 +1,24 @@
+# Отчёты
+reports/
+*.txt
+*.log
+*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Временные файлы
+test_*.log
+temp_*

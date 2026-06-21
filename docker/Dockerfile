@@ -6,11 +6,12 @@ RUN apt update && apt install -y python3 python3-pip sudo && rm -rf /var/lib/apt
 # Создаём рабочую директорию
 WORKDIR /app
 
-# Копируем скрипт
-COPY check_os_updates.py log_analyzer.py .
+# Копируем все файлы проекта
+COPY . .
 
 # Даём права на выполнение
-RUN chmod +x *.py
+RUN chmod +x audit.py modules/*.py
 
 # Запускаем скрипт
-ENTRYPOINT ["python3"]
+ENTRYPOINT ["python3", "audit.py"]
+CMD ["--help"]
