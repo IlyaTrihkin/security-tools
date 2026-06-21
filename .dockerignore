@@ -7,3 +7,5 @@ test_*
 .git/
 .gitignore
 README.md
+venv/
+.env

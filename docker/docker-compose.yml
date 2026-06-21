@@ -1,14 +1,17 @@
 version: '3.8'
 
 services:
-  check-updates:
-    build: .
-    command: ["check_os_updates.py", "--format", "json"]
-    restart: "no"
-
-  log-analyzer:
-    build: .
-    command: ["log_analyzer.py", "--format", "text", "--file", "/var/log/auth.log"]
-    volumes:
-      - /var/log:/var/log:ro
+  security-audit:
+    build: ..
+    dockerfile: docker/Dockerfile
+    # Можно переопределить команду для конкретного запуска, например:
+    # command: ["--cve", "--quick"]
+    # Для интерактивного запуска оставляем пустым, чтобы использовать CMD из Dockerfile
+    # но лучше указать явно:
+    command: ["--cve", "--quick", "--yes"]
+    # Монтируем системные логи для доступа к auth.log (если нужно)
+    # volumes:
+    #   - /var/log:/var/log:ro
+    # Для установки обновлений могут потребоваться права sudo, поэтому можно запускать с привилегиями
+    # privileged: true
     restart: "no"
