@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    command: ["--cve"]
+    command: ["--cve", "--quick"]
     # volumes:
     #   - /var/log:/var/log:ro
     restart: "no"
