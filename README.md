@@ -1,4 +1,4 @@
-# 🛡️ security-tools
+# 🛡️ linux-audit-engine
 
 Универсальный набор скриптов для автоматизации задач информационной безопасности в Linux.
 
@@ -221,7 +221,7 @@ Machine ID:    54a7c25a4c3e4fbaaa2bb3943bffdea9
 ## 📁 Структура проекта
 
 ```bash
-security-tools/
+linux-audit-engine/
 ├── audit.py                      # ★ Главный скрипт аудита
 ├── src/                          # Исходные модули
 │   ├── __init__.py
