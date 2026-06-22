@@ -1,4 +1,5 @@
 reports/
+cve_cache.json
 __pycache__/
 *.pyc
 *.log

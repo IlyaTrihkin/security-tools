@@ -2,16 +2,10 @@ version: '3.8'
 
 services:
   security-audit:
-    build: ..
-    dockerfile: docker/Dockerfile
-    # Можно переопределить команду для конкретного запуска, например:
-    # command: ["--cve", "--quick"]
-    # Для интерактивного запуска оставляем пустым, чтобы использовать CMD из Dockerfile
-    # но лучше указать явно:
-    command: ["--cve", "--quick", "--yes"]
-    # Монтируем системные логи для доступа к auth.log (если нужно)
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: ["--cve"]
     # volumes:
     #   - /var/log:/var/log:ro
-    # Для установки обновлений могут потребоваться права sudo, поэтому можно запускать с привилегиями
-    # privileged: true
     restart: "no"

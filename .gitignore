@@ -4,6 +4,9 @@ reports/
 *.log
 *.json
 
+# Кэш CVE
+cve_cache.json
+
 # Python
 __pycache__/
 *.pyc
