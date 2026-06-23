@@ -268,3 +268,9 @@ https://tenchat.ru/ilya_trishkin
 
 #### Habr: 
 https://habr.com/ru/users/ilya_trishkin
+
+---
+
+## 📄 Лицензия
+
+Этот проект распространяется под лицензией MIT. Подробнее см. [LICENSE](LICENSE).
